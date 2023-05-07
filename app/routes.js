@@ -13,7 +13,7 @@ module.exports = function(app, passport, db) {
           if (err) return console.log(err)
           res.render('profile.ejs', {
             user : req.user,
-            messages: result
+            tvMovies: result
           })
         })
     });
@@ -28,12 +28,12 @@ module.exports = function(app, passport, db) {
 
 // message board routes ===============================================================
 
-    app.post('/messages', (req, res) => {
+    app.post('/tvMovieCharacter', (req, res) => {
       db.collection('tvmovies').save({
         name: req.body.name, 
         movieshow: req.body.movieshow,
-        quote: req.body.quote,
-        thumbUp: 0
+        quote: req.body.quote
+        
         }, (err, result) => {
         if (err) return console.log(err)
         console.log('saved to database')
@@ -41,25 +41,25 @@ module.exports = function(app, passport, db) {
       })
     })
 
-    app.put('/messages', (req, res) => {
-      db.collection('tvmovies')
-      .findOneAndUpdate({
-        name: req.body.name, 
-        movieshow: req.body.movieshow, 
-        quote: req.body.quote}, {
-        $set: {
-          thumbUp:req.body.thumbUp
-        }
-      }, {
-        sort: {_id: -1},
-        upsert: true
-      }, (err, result) => {
-        if (err) return res.send(err)
-        res.send(result)
-      })
-    })
+    // app.put('/messages', (req, res) => {
+    //   db.collection('tvmovies')
+    //   .findOneAndUpdate({
+    //     name: req.body.name, 
+    //     movieshow: req.body.movieshow, 
+    //     quote: req.body.quote}, {
+    //     $set: {
+    //       thumbUp:req.body.thumbUp
+    //     }
+    //   }, {
+    //     sort: {_id: -1},
+    //     upsert: true
+    //   }, (err, result) => {
+    //     if (err) return res.send(err)
+    //     res.send(result)
+    //   })
+    // })
 
-    app.delete('/messages', (req, res) => {
+    app.delete('/deleted', (req, res) => {
       db.collection('tvmovies').findOneAndDelete({
         name: req.body.name, 
         movieshow: req.body.movieshow, 

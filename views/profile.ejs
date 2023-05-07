@@ -20,40 +20,27 @@
         <!-- LOCAL INFORMATION -->
         <div class="col-sm-6">
             <div class="well">
-                <h3><span class="fa fa-user"></span> Local</h3>
-
-                <% if (user.local.email) { %>
-                    <p>
-                        <strong>id</strong>: <%= user._id %><br>
-                        <strong>email</strong>: <%= user.local.email %><br>
-                        <strong>password</strong>: <%= user.local.password %>
-                    </p>
-
-                    <a href="/unlink/local" class="btn btn-default">Unlink</a>
-                <% } else { %>
-                    <a href="/connect/local" class="btn btn-default">Connect Local</a>
-                <% } %>
-
+              <img src="" alt="">
             </div>
+            <h3></h3>
         </div>
         <div class="col-sm-6">
-          <h3>Messages</h3>
+          <h3>TV/Movie Characters</h3>
           <ul class="messages">
-          <% for(var i=0; i<messages.length; i++) {%>
+          <% for(var i=0; i<tvMovies.length; i++) {%>
             <li class="message">
-              <span><%= messages[i].name %></span>
-              <span><%= messages[i].movieshow %></span>
-              <span><%= messages[i].quote %></span>
-              <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
+              <span><%= tvMovies[i].name %></span>
+              <span><%= tvMovies[i].movieshow %></span>
+              <span><%= tvMovies[i].quote %></span>
               <span><i class="fa fa-trash" aria-hidden="true"></i></span>
             </li>
           <% } %>
           </ul>
 
-          <h2>Add a message</h2>
+          <h2>Adda a TV/Movie Character and there quote and we will show you an image of that Character</h2>
         <% if (user.local.email) { %>
-          <form action="/messages" method="POST">
-            <input type="text" placeholder="name of charaecter" name="name">
+          <form action="/tvMovieCharacter" method="POST">
+            <input type="text" placeholder="name of charaecter" name="name" class="character">
             <input type="text" placeholder="tv show/movie" name="movieshow">
             <input type="text" placeholder="quote" name="quote">
             <button type="submit">Submit</button>

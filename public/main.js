@@ -1,38 +1,30 @@
-var thumbUp = document.getElementsByClassName("fa-thumbs-up");
+var btn = document.querySelector('button')
 var trash = document.getElementsByClassName("fa-trash");
 
-Array.from(thumbUp).forEach(function(element) {
-      element.addEventListener('click', function(){
-        const name = this.parentNode.parentNode.childNodes[1].innerText
-        const movieshow = this.parentNode.parentNode.childNodes[3].innerText
-        const quote = this.parentNode.parentNode.childNodes[5].innerText
-        const thumbUp = parseFloat(this.parentNode.parentNode.childNodes[7].innerText)
-        fetch('messages', {
-          method: 'put',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({
-            'name': name,
-            'movieshow': movieshow,
-            'quote': quote,
-            'thumbUp':thumbUp
-          })
-        })
-        .then(response => {
-          if (response.ok) return response.json()
-        })
-        .then(data => {
-          console.log(data)
-          window.location.reload(true)
-        })
-      });
-});
+function getGif(){
+  let tvMovCharacter = document.querySelector('.character').innerText
+  console.log(tvMovCharacter)
+  const url =(`https://api.giphy.com/v1/gifs/search?api_key=AIiaEGS4Zzd6LT85Mpo3pttpK5lluMmH&q=${tvMovCharacter}&limit=2&offset=5&rating=pg-13&lang=en`)
+  fetch(url)
+  .then(res => res.json())
+  .then(gif => {
+      console.log(gif)
+      document.querySelector('h3').innerText = tvMovCharacter
+      document.querySelector('img').src = gif.data[0].images.fixed_height.u
+  })
+  .catch(err => {
+    console.log(`error ${err}`)
+                    
+    })
+  }
+ 
 
 Array.from(trash).forEach(function(element) {
       element.addEventListener('click', function(){
         const name = this.parentNode.parentNode.childNodes[1].innerText
         const movieshow = this.parentNode.parentNode.childNodes[3].innerText
         const quote = this.parentNode.parentNode.childNodes[5].innerText
-        fetch('messages', {
+        fetch('/deleted', {
           method: 'delete',
           headers: {
             'Content-Type': 'application/json'
@@ -47,3 +39,4 @@ Array.from(trash).forEach(function(element) {
         })
       });
 });
+btn.addEventListener('click', getGif)
