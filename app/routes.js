@@ -1,3 +1,4 @@
+const ObjectId = require('mongodb').ObjectId
 module.exports = function(app, passport, db) {
 
 // normal routes ===============================================================
@@ -37,7 +38,8 @@ module.exports = function(app, passport, db) {
         }, (err, result) => {
         if (err) return console.log(err)
         console.log('saved to database')
-        res.redirect('/profile')
+        // res.redirect('/profile')
+        res.send(result)
       })
     })
 

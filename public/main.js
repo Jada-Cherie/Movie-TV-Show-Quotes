@@ -2,15 +2,15 @@ var btn = document.querySelector('button')
 var trash = document.getElementsByClassName("fa-trash");
 
 function getGif(){
-  let tvMovCharacter = document.querySelector('.character').innerText
+  let tvMovCharacter = document.querySelector('.character').value
   console.log(tvMovCharacter)
   const url =(`https://api.giphy.com/v1/gifs/search?api_key=AIiaEGS4Zzd6LT85Mpo3pttpK5lluMmH&q=${tvMovCharacter}&limit=2&offset=5&rating=pg-13&lang=en`)
   fetch(url)
   .then(res => res.json())
   .then(gif => {
       console.log(gif)
-      document.querySelector('h3').innerText = tvMovCharacter
-      document.querySelector('img').src = gif.data[0].images.fixed_height.u
+      // document.querySelector('h3').innerText = tvMovCharacter
+      document.querySelector('img').src = gif.data[0].images.fixed_height.url
   })
   .catch(err => {
     console.log(`error ${err}`)
@@ -39,4 +39,7 @@ Array.from(trash).forEach(function(element) {
         })
       });
 });
-btn.addEventListener('click', getGif)
+btn.addEventListener('click', (event) => {
+event.preventDefault()
+getGif()
+})
